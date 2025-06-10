@@ -1,0 +1,32 @@
+public class LinkedList {
+    public int val;
+    public LinkedList node;
+
+    public LinkedList(int x){
+        val = x;
+    }
+
+    public static void main(String args[]){
+        LinkedList l1=new LinkedList(2);
+        LinkedList l2=new LinkedList(3);
+        LinkedList l3=new LinkedList(4);
+        LinkedList l4=new LinkedList(5);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=null;
+
+        LinkedList ptr=l1;
+        while(ptr != null){
+            System.out.print(ptr.val+"->");
+            ptr=ptr.node;
+        }
+
+    }
+}
+//Linked List Representation:
+// l1 -> l2 -> l3 -> l4 -> null
+
+//Time Complexity: O(n) – each node is visited once during traversal.
+//Space Complexity: O(1) – only one pointer (ptr) is used, no extra space needed.
