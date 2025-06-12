@@ -1,0 +1,59 @@
+public class LinkedList_6 {
+    public int val;
+    public LinkedList_6 node;
+    
+    public LinkedList_6(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    public static LinkedList_6 Mid_Node(LinkedList_6 head){
+        
+        LinkedList_6 slow=head;
+        LinkedList_6 fast=head;
+
+        while(fast != null && fast.node != null){
+            slow=slow.node;
+            fast=fast.node.node;
+        }
+        return slow;
+    }
+
+    public static LinkedList_6 print(LinkedList_6 head){
+        LinkedList_6 ptr=head;
+
+        while(ptr != null){
+            System.out.print(ptr.val+"->");
+            ptr=ptr.node;
+        }
+       System.out.println("null");
+        return head;
+    }
+    
+
+    public static void main(String[] args) {
+        LinkedList_6 l1=new LinkedList_6(4);
+        LinkedList_6 l2=new LinkedList_6(7);
+        LinkedList_6 l3=new LinkedList_6(3);
+        LinkedList_6 l4=new LinkedList_6(9);
+        LinkedList_6 l5=new LinkedList_6(6);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=l5;
+
+        print(l1);
+
+        LinkedList_6 mid=Mid_Node(l1);
+        System.out.println(mid.val);
+        print(mid);
+    }
+
+}
+
+//4->7->3->9->6->null
+//3
+//3->9->6->null   
+
+//Time Complexity: O(n), Space Complexity: O(1)
