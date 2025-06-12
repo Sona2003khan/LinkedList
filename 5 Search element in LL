@@ -1,0 +1,45 @@
+public class LinkedList_5 {
+    public int val;
+    public LinkedList_5 node;
+    
+    public LinkedList_5(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    public static boolean find_element(LinkedList_5 head ,int key){
+        LinkedList_5 ptr=head;
+
+        while(ptr != null){
+            if(ptr.val==key){
+                return true;
+            }
+            ptr=ptr.node;
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        LinkedList_5 l1=new LinkedList_5(4);
+        LinkedList_5 l2=new LinkedList_5(7);
+        LinkedList_5 l3=new LinkedList_5(3);
+        LinkedList_5 l4=new LinkedList_5(9);
+        LinkedList_5 l5=new LinkedList_5(6);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=l5;
+
+        System.out.println(find_element(l1, 3));
+        System.out.println(find_element(l1, 2));
+
+    }
+
+}
+
+//Output : true
+//Output : false
+
+//Time: O(n)   , Space: O(1)
+
