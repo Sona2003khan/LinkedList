@@ -1,0 +1,70 @@
+public class LinkedList_3 {
+    public int val;
+    public LinkedList_3 node;
+
+    public LinkedList_3(int x) {
+        this.val = x;
+        this.node = null;
+    }
+
+    public static LinkedList_3 DeleteHead(LinkedList_3 head) {
+        if (head == null) return null;
+        return head.node;
+    }
+
+    public static LinkedList_3 DeleteTail(LinkedList_3 head) {
+        if (head == null || head.node == null) return null;
+        LinkedList_3 ptr = head;
+        while (ptr.node.node != null) {
+            ptr = ptr.node;
+        }
+        ptr.node = null;
+        return head;
+    }
+
+    public static LinkedList_3 DeleteMiddle(LinkedList_3 head, int pos) {
+        if (head == null || pos <= 0) return head;
+        LinkedList_3 ptr = head;
+        for (int i = 0; i < pos - 1 && ptr.node != null; i++) {
+            ptr = ptr.node;
+        }
+        if (ptr.node != null) {
+            ptr.node = ptr.node.node;
+        }
+        return head;
+    }
+
+    public static void print(LinkedList_3 head) {
+        LinkedList_3 ptr = head;
+        while (ptr != null) {
+            System.out.print(ptr.val + " ");
+            ptr = ptr.node;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList_3 l1 = new LinkedList_3(2);
+        LinkedList_3 l2 = new LinkedList_3(4);
+        LinkedList_3 l3 = new LinkedList_3(6);
+        LinkedList_3 l4 = new LinkedList_3(8);
+        LinkedList_3 l5 = new LinkedList_3(21);
+
+        // Link the nodes
+        l1.node = l2;
+        l2.node = l3;
+        l3.node = l4;
+        l4.node = l5;
+
+        // Apply deletions
+        l1 = DeleteHead(l1);        // Deletes 2
+        l1 = DeleteTail(l1);        // Deletes 21
+        l1 = DeleteMiddle(l1, 1);   // Deletes node at position 1 (zero-based)
+
+        // Print final list
+        print(l1); // Output should be: 4 8
+    }
+}
+// Output should be: 4 8
+//Time Complexity: O(n) in worst case (for DeleteTail and DeleteMiddle).
+//Space Complexity: O(1) since no extra space is used.
