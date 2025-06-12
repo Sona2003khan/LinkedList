@@ -59,3 +59,16 @@ public class LinkedList_2 {
 
     }
 }
+
+/*Time Complexity:
+
+insertHead: O(1), insertTail and insertMiddle: O(n) in worst case
+
+Space Complexity:
+
+O(1) extra space (excluding the space for the linked list itself)*/
+
+//         ┌──────┐     ┌──────┐     ┌──────┐     ┌──────┐     ┌──────┐     ┌──────┐     ┌──────┐
+Head →  │  9   │ →  │  2   │ →  │ 22   │ →  │  4   │ →  │  6   │ →  │  8   │ →  │  7   │ → null
+         └──────┘     └──────┘     └──────┘     └──────┘     └──────┘     └──────┘     └──────┘
+
