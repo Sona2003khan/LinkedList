@@ -1,0 +1,76 @@
+import java.util.Stack;
+
+public class LinkedList_7 {
+    public int val;
+    public LinkedList_7 node;
+    public LinkedList_7(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    public static LinkedList_7 reverseLLStack(LinkedList_7 head){
+        LinkedList_7 ptr=head;
+        Stack<Integer> st=new Stack<>();
+
+        while(ptr != null){
+            st.push(ptr.val);
+            ptr=ptr.node;
+        }
+        LinkedList_7 newHead=new LinkedList_7(Integer.MIN_VALUE);
+        LinkedList_7 current=newHead;
+        while(!st.isEmpty()){
+            current.node=new LinkedList_7(st.pop());
+            current=current.node;
+        }
+        return newHead.node;
+    }
+
+    public static LinkedList_7 reverseLLPoiters(LinkedList_7 head){
+        if(head.node == null){
+            return head;
+        }
+
+        LinkedList_7 preNode=null;
+        LinkedList_7 currNode=head;
+
+        while(currNode != null){
+            LinkedList_7 nextNode=currNode.node;
+            currNode.node=preNode;
+            preNode=currNode;
+            currNode=nextNode;
+        }
+        head=preNode;
+        return head;
+    }
+    
+    public static void printList(LinkedList_7 head){
+    while (head != null) {
+        System.out.print(head.val + " ");
+        head = head.node;
+    }
+    System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList_7 l1=new LinkedList_7(4);
+        LinkedList_7 l2=new LinkedList_7(9);
+        LinkedList_7 l3=new LinkedList_7(3);
+        LinkedList_7 l4=new LinkedList_7(6);
+        LinkedList_7 l5=new LinkedList_7(1);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=l5;
+
+        /*LinkedList_7 reverse=reverseLLStack(l1);
+        printList(reverse);*/
+
+        LinkedList_7 reverseLL=reverseLLPoiters(l1);            //tc : O(n)
+        printList(reverseLL);                                   //sc : O(1)
+
+    }
+}
+
+// Time Complexity: O(n) — one pass to push into the stack and one pass to rebuild the list.
+//Space Complexity: O(n) — stack stores n elements.   //using pointers : O(1)
