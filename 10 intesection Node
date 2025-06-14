@@ -1,0 +1,106 @@
+public class LinkedList_10 {
+    public int val;
+    public LinkedList_10 node;
+    public LinkedList_10(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    public static LinkedList_10 getIntersection(LinkedList_10 headA, LinkedList_10 headB) {                         //using hashset
+        HashSet<LinkedList_10> set = new HashSet<>();
+        
+        while (headA != null) {
+            set.add(headA);
+            headA = headA.node;
+        }
+        
+        while (headB != null) {
+            if (set.contains(headB)) {
+                return headB;
+            }
+            headB = headB.node;
+        }
+
+        return null; 
+    }
+
+    public static int length(LinkedList_10 head){
+        LinkedList_10 ptr=head;
+        int count=0;
+
+        while (ptr != null) {
+            ptr=ptr.node;
+            count++;
+        }
+        return count;
+    }
+
+    public static LinkedList_10 intersectionTwoLL(LinkedList_10 headA ,LinkedList_10 headB){
+        int len1=length(headA);
+        int len2=length(headB);
+
+        while(len1 > len2){
+            len1--;
+            headA=headA.node;
+        }
+
+        while(len2 > len1){
+            len2--;
+            headB=headB.node;
+        }
+
+        while(headA != headB){
+            headA=headA.node;
+            headB=headB.node;
+        }
+        return headA;
+    }
+
+    public static void printLinkedList(LinkedList_10 head) {
+
+    while (head != null) {
+        System.out.print(head.val + " ");
+        head = head.node;
+    }
+    System.out.println();
+    }
+
+
+    public static void main(String[] args) {
+
+        LinkedList_10 common1=new LinkedList_10(12);
+        LinkedList_10 common2=new LinkedList_10(61);
+        common1.node=common2;
+
+        LinkedList_10 l1=new LinkedList_10(9);
+        LinkedList_10 l2=new LinkedList_10(2);
+        LinkedList_10 l3=new LinkedList_10(5);
+        LinkedList_10 l4=new LinkedList_10(7);
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=common1;
+
+        LinkedList_10 s1=new LinkedList_10(6);
+        LinkedList_10 s2=new LinkedList_10(19);
+        LinkedList_10 s3=new LinkedList_10(10);
+        LinkedList_10 s4=new LinkedList_10(3);
+        s1.node=s2;
+        s2.node=s3;
+        s3.node=s4;
+        s4.node=common1;
+        
+        System.out.println(length(l1));
+
+        printLinkedList(l1);
+
+        printLinkedList(s1);
+
+        printLinkedList(common1);
+
+        LinkedList_10 commonNode=intersectionTwoLL(l1, s1);
+        System.out.println(commonNode.val);
+    }
+}
+//Time Complexity: O(m + n) — where m and n are lengths of the two linked lists.
+//Space Complexity: O(1) — no extra space is used, just pointer manipulation.
