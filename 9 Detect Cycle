@@ -1,0 +1,67 @@
+import java.util.HashMap;
+import java.util.HashSet;
+
+public class LinkedList_9 {
+    public int val;
+    public LinkedList_9 node;
+    public LinkedList_9(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    public static boolean cycle(LinkedList_9 head){
+        HashSet<LinkedList_9> set=new HashSet<>();
+
+        while(head != null){
+            if(set.contains(head)){
+                return true;
+            }
+            set.add(head);
+            head=head.node;
+        }
+        return false;
+    }
+
+    public static boolean Floyd_Warshall(LinkedList_9 head){
+
+        LinkedList_9 slow=head;
+        LinkedList_9 fast=head;
+
+        while(fast != null && fast.node != null){
+            slow=slow.node;
+            fast=fast.node.node;
+
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        LinkedList_9 l1=new LinkedList_9(10);
+        LinkedList_9 l2=new LinkedList_9(4);
+        LinkedList_9 l3=new LinkedList_9(7);
+        LinkedList_9 l4=new LinkedList_9(6);
+        LinkedList_9 l5=new LinkedList_9(1);
+        LinkedList_9 l6=new LinkedList_9(6);
+
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=l5;
+        l5.node=l6;
+        l6.node=l2;
+
+       /* boolean result=cycle(l1);
+        System.out.println(result); */
+
+        boolean result2=Floyd_Warshall(l1);
+        System.out.println(result2);
+
+    }
+}
+
+//With HashSet: Time: O(n), Space: O(n) — stores visited nodes to detect cycle.
+//Without HashSet (Floyd’s): Time: O(n), Space: O(1) — uses slow and fast pointers to detect cycle
