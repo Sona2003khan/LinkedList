@@ -25,7 +25,7 @@ public class LinkedList_7 {
         return newHead.node;
     }
 
-    public static LinkedList_7 reverseLLPoiters(LinkedList_7 head){
+    public static LinkedList_7 reverseLLPoiters(LinkedList_7 head){      //O(n) tc and sc
         if(head.node == null){
             return head;
         }
@@ -41,6 +41,15 @@ public class LinkedList_7 {
         }
         head=preNode;
         return head;
+    }
+
+    public static void reverseLLRecursion(LinkedList_7 head){
+        if(head == null){
+            return;
+        }
+
+        reverseLLRecursion(head.node);
+        System.out.print(head.val+" ");
     }
     
     public static void printList(LinkedList_7 head){
@@ -66,9 +75,10 @@ public class LinkedList_7 {
         /*LinkedList_7 reverse=reverseLLStack(l1);
         printList(reverse);*/
 
-        LinkedList_7 reverseLL=reverseLLPoiters(l1);            //tc : O(n)
-        printList(reverseLL);                                   //sc : O(1)
+        /*LinkedList_7 reverseLL=reverseLLPoiters(l1);            //tc : O(n)
+        printList(reverseLL); */                                  //sc : O(1)
 
+        reverseLLRecursion(l1);
     }
 }
 
