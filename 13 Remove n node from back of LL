@@ -1,0 +1,76 @@
+public class LinkedList_13 {
+    public int val;
+    public LinkedList_13 node;
+
+    public LinkedList_13(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    public static LinkedList_13 Remove_Node_From_End(LinkedList_13 head ,int n){
+        LinkedList_13 temp=head;
+        int length=0;
+        while (temp != null) {
+            temp=temp.node;
+            length++;
+        }
+        if (n == length) return head.node;
+
+        LinkedList_13 ptr=head;
+        for(int i=0;i<length-n;i++){
+            ptr=ptr.node;
+        }
+
+        if(ptr.node!= null){
+            ptr.node=ptr.node.node;;
+        }
+        return head;
+    }
+    public static LinkedList_13 Remove_Node_From_End_modified(LinkedList_13 head ,int n){
+        LinkedList_13 first=head;
+        LinkedList_13 second=head;
+
+        for(int i=0;i<n;i++){
+            if(first == null){
+                return head;
+            }
+            first=first.node;
+        }
+        if (first == null) return head.node;
+        while(first.node != null){
+            first=first.node;
+            second=second.node;
+        }
+        second.node=second.node.node;
+        return head;
+    }
+
+    public static void printList(LinkedList_13 head) {
+    while (head != null) {
+        System.out.print(head.val + (head.node != null ? " -> " : ""));
+        head = head.node;
+    }
+    System.out.println();
+}
+
+     public static void main(String[] args) {
+        LinkedList_13 l1=new LinkedList_13(6);
+        LinkedList_13 l2=new LinkedList_13(8);
+        LinkedList_13 l3=new LinkedList_13(3);
+        LinkedList_13 l4=new LinkedList_13(7);
+        LinkedList_13 l5=new LinkedList_13(1);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=l5;
+        l5.node=null;
+
+        Remove_Node_From_End(l1 ,3);
+        printList(l1);
+        
+    }
+}
+
+//Time Complexity: O(L), where L is the number of nodes in the list.
+//Space Complexity: O(1), since only a fixed number of pointers are used.
