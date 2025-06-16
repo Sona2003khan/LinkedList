@@ -1,3 +1,52 @@
+public class LinkedList_11 {
+    public int val;
+    public LinkedList_11 node;
+    public LinkedList_11(int x){
+        this.val=x;
+        this.node=null;
+    }
+    
+    public static LinkedList_11 middle_node_remove(LinkedList_11 head){
+        LinkedList_11 slow=head;
+        LinkedList_11 fast=head;
+        LinkedList_11 prev=head;
 
+        while(fast != null && fast.node != null){
+            prev=slow;
+            slow=slow.node;
+            fast=fast.node.node;
+        }
+        prev.node=slow.node;
+        return head;
+    }
+
+    public static LinkedList_11 printLinkedLinkedList(LinkedList_11 head) {
+
+    LinkedList_11 ptr=head;
+    while (ptr != null) {
+        System.out.print(ptr.val + " ");
+        ptr = ptr.node;
+    }
+    System.out.println();
+    return head;
+    }
+
+
+    public static void main(String[] args) {
+        LinkedList_11 l1=new LinkedList_11(9);
+        LinkedList_11 l2=new LinkedList_11(2);
+        LinkedList_11 l3=new LinkedList_11(5);
+        LinkedList_11 l4=new LinkedList_11(7);
+        LinkedList_11 l5=new LinkedList_11(3);
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=l5;
+        l5.node=null;
+
+        middle_node_remove(l1);
+        printLinkedLinkedList(l1);
+    }
+}
 //Time Complexity: O(n) — because you traverse the list once using slow and fast pointers.
 //Space Complexity: O(1) — no extra space is used beyond a few pointers.
