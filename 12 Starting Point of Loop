@@ -30,6 +30,23 @@ public class LinkedList_12 {
         }
         return null;
     }
+
+
+    /*public static LinkedList_12 Loop_starting_point(LinkedList_12 head){
+        HashSet<LinkedList_12> visited = new HashSet<>();
+        LinkedList_12 current = head;
+
+        while (current != null) {
+            if (visited.contains(current)) {
+                return current;
+            }
+            visited.add(current);
+            current = current.node;
+        }
+        return null;
+    }*/
+
+
     public static void main(String[] args) {
         LinkedList_12 l1=new LinkedList_12(6);
         LinkedList_12 l2=new LinkedList_12(8);
