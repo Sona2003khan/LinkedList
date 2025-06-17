@@ -1,0 +1,88 @@
+public class LinkedList_14 {
+    
+    public int val;
+    public LinkedList_14 node;
+    public LinkedList_14(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    /*public boolean isPalindrome(ListNode head) {                                 //Stack O(n) -> T.C && S.C
+        if (head == null || head.next == null) return true;
+
+        Stack<Integer> stack = new Stack<>();
+        ListNode temp = head;
+
+        // Step 1: Push all elements to the stack
+        while (temp != null) {
+            stack.push(temp.val);
+            temp = temp.next;
+        }
+
+        // Step 2: Compare values while popping from stack
+        temp = head;
+        while (temp != null) {
+            if (temp.val != stack.pop()) {
+                return false;
+            }
+            temp = temp.next;
+        }
+
+        return true;
+    }*/
+
+    public static boolean pallindrome_LL(LinkedList_14 head){
+        if(head==null || head.node==null){
+            return true;
+        }
+        LinkedList_14 slow=head;
+        LinkedList_14 fast=head;
+        while (fast != null && fast.node != null) {
+            slow=slow.node;
+            fast=fast.node.node;
+        }
+        LinkedList_14 curr=slow;
+        LinkedList_14 prev=null;
+        while (curr != null) {
+            LinkedList_14 next=curr.node;
+            curr.node=prev;
+            prev=curr;
+            curr=next;
+        }
+        LinkedList_14 first_half=head;
+        LinkedList_14 sec_half=prev;
+        while (sec_half != null) {
+            if(first_half.val != sec_half.val){
+                return false;
+            }
+            first_half=first_half.node;
+            sec_half=sec_half.node;
+        }
+        return true;
+    }
+
+    public static void printLL(LinkedList_14 head){
+        LinkedList_14 ptr=head;
+        while (ptr != null) {
+            System.out.print(ptr.val+"->");
+            ptr=ptr.node;
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) {
+        LinkedList_14 l1=new LinkedList_14(3);
+        LinkedList_14 l2=new LinkedList_14(1);
+        LinkedList_14 l3=new LinkedList_14(1);
+        LinkedList_14 l4=new LinkedList_14(3);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=null;
+
+        printLL(l1);
+        System.out.println(pallindrome_LL(l1));
+    }
+}
+//Time Complexity: O(n) — traverses the list to find the middle, reverse second half, and compare.
+//Space Complexity: O(1) — uses constant extra space (no stack or array used).
