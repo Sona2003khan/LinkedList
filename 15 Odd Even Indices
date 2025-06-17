@@ -1,0 +1,89 @@
+public class LinkedList_15 {
+    public int val;
+    public LinkedList_15 node;
+    public LinkedList_15(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    public static LinkedList_15 odd_even_indicesLL(LinkedList_15 head){
+        if(head == null || head.node==null){
+            return head;
+        }
+        LinkedList_15 oddDummy=new LinkedList_15(0);
+        LinkedList_15 evenDummy=new LinkedList_15(0);
+        LinkedList_15 odd = oddDummy;
+        LinkedList_15 even = evenDummy;
+        LinkedList_15 curr=head;
+        int idx=1;
+
+        while (curr != null) {
+            LinkedList_15 newNode=new LinkedList_15(curr.val);
+            if(idx % 2 == 1){
+                odd.node=newNode;
+                odd=odd.node;
+            }
+            else{
+                even.node=newNode;
+                even=even.node;
+            }
+
+            curr=curr.node;
+            idx++;
+        }
+        odd.node = evenDummy.node;
+        return oddDummy.node;
+    }
+
+    public static LinkedList_15 odd_even_indicesLL_modified(LinkedList_15 head){
+        if(head == null || head.node==null){
+            return head;
+        }
+    
+        LinkedList_15 odd=head;
+        LinkedList_15 even=head.node;
+        LinkedList_15 evenHead=head.node;
+        int idx=1;
+        while (even != null && even.node != null) {
+            if(idx % 2 == 1){
+                odd.node=odd.node.node;
+                odd=odd.node;
+            }
+            else{
+                even.node=even.node.node;
+                even=even.node;
+            }
+            idx++;
+        }
+        odd.node=evenHead;
+        return head;
+    }
+
+    public static void printLL(LinkedList_15 head){
+        LinkedList_15 ptr=head;
+        while (ptr != null) {
+            System.out.print(ptr.val+"->");
+            ptr=ptr.node;
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) {
+        LinkedList_15 l1=new LinkedList_15(3);
+        LinkedList_15 l2=new LinkedList_15(7);
+        LinkedList_15 l3=new LinkedList_15(2);
+        LinkedList_15 l4=new LinkedList_15(3);
+        LinkedList_15 l5=new LinkedList_15(5);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=l5;
+        l5.node=null;
+
+      //  odd_even_indicesLL_modified(l1);
+        LinkedList_15 result = odd_even_indicesLL(l1);
+        printLL(result);
+    }
+}
+//Time Complexity: O(n) — Traverses all nodes once.
+//Space Complexity: O(n) — Creates a new list with new nodes. OR Space Complexity: O(1) — Rearranges pointers without extra space.
