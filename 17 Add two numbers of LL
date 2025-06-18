@@ -1,0 +1,76 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class LinkedList_17 {
+    public int val;
+    public LinkedList_17 node;
+    public LinkedList_17(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    
+    public static LinkedList_17 Add_2_numbers(LinkedList_17 head1, LinkedList_17 head2){
+        LinkedList_17 newNode=new LinkedList_17(0);
+        LinkedList_17 ptr=newNode;
+
+        int carry=0;
+
+        while(head1 != null || head2 != null || carry != 0){
+            int sum=0+carry;
+
+            if(head1 != null){
+                sum +=head1.val;
+                head1=head1.node;
+            }
+            if(head2 != null){
+                sum +=head2.val;
+                head2=head2.node;
+            }
+
+            carry = sum / 10;
+            sum = sum % 10;
+            ptr.node=new LinkedList_17(sum);
+            ptr=ptr.node;
+        }
+        return newNode.node;
+    }
+
+    public static void printLL(LinkedList_17 head){
+        LinkedList_17 ptr = head;
+        while (ptr != null) {
+            System.out.print(ptr.val + " ");
+            ptr = ptr.node;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        
+        LinkedList_17 l1=new LinkedList_17(4);
+        LinkedList_17 l2=new LinkedList_17(3);
+        LinkedList_17 l3=new LinkedList_17(9);
+        LinkedList_17 l4=new LinkedList_17(1);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=null;
+
+        LinkedList_17 s1=new LinkedList_17(2);
+        LinkedList_17 s2=new LinkedList_17(3);
+        LinkedList_17 s3=new LinkedList_17(9);
+        LinkedList_17 s4=new LinkedList_17(5);
+
+        s1.node=s2;
+        s2.node=s3;
+        s3.node=s4;
+        s4.node=null;
+
+        LinkedList_17 addedValues=Add_2_numbers(l1, s1);
+        printLL(addedValues);
+    }
+}
+
+//Time Complexity: O(max(m, n)) — where m and n are the lengths of the two linked lists.
+//Space Complexity: O(max(m, n)) — for storing the result as a new linked list.
