@@ -1,0 +1,73 @@
+
+public class LinkedList_18 {
+
+    public int val;
+    public LinkedList_18 node;
+    public LinkedList_18(int x){
+        this.val=x;
+        this.node=null;
+    }
+
+    public static LinkedList_18 reverse(LinkedList_18 head){
+        if(head == null || head.node==null){
+            return head;
+        }
+        LinkedList_18 curr=head;
+        LinkedList_18 prev=null;
+
+        while (curr != null) {
+            LinkedList_18 next=curr.node;
+            curr.node=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+
+    public static LinkedList_18 Add_1_to_no_LL(LinkedList_18 head){
+        head=reverse(head);
+        LinkedList_18 Added_val=new LinkedList_18(0);
+        LinkedList_18 newhead=Added_val;
+        LinkedList_18 ptr=head;
+
+        int carry=1;
+        while (ptr != null || carry != 0) {
+            int sum=carry+0;
+            if(ptr != null){
+                sum += ptr.val;
+                ptr=ptr.node;
+            }
+            carry=sum/10;
+            int digit=sum%10;
+            Added_val.node=new LinkedList_18(digit);
+            Added_val=Added_val.node;
+        }
+        return reverse(newhead.node);
+    }
+
+    public static void printLL(LinkedList_18 head){
+        LinkedList_18 ptr = head;
+        while (ptr != null) {
+            System.out.print(ptr.val + " ");
+            ptr = ptr.node;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList_18 l1=new LinkedList_18(3);
+        LinkedList_18 l2=new LinkedList_18(2);
+        LinkedList_18 l3=new LinkedList_18(1);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=null;
+
+        LinkedList_18 result=Add_1_to_no_LL(l1);
+        printLL(result);
+
+    }
+}
+
+//Time Complexity: O(max(n, m)) — each node of both lists is visited once.
+//Space Complexity: O(max(n, m)) — for storing the result linked list.
