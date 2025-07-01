@@ -1,0 +1,93 @@
+public class LinkedList_16 {
+    public int val;
+    public LinkedList_16 node;
+    public LinkedList_16(int x){
+        this.val=x;
+        this.node=null;
+    } 
+
+    public static LinkedList_16 middle(LinkedList_16 head){
+        LinkedList_16 slow=head;
+        LinkedList_16 fast=head;
+        LinkedList_16 prev=null;
+
+        while(fast != null && fast.node != null){
+            prev=slow;
+            slow=slow.node;
+            fast=fast.node.node;
+        }
+        return prev;
+    }
+
+    public static LinkedList_16 sort(LinkedList_16 head1 ,LinkedList_16 head2){
+        LinkedList_16 newLinkedList=new LinkedList_16(-1);
+        LinkedList_16 ptr=newLinkedList;
+
+        while(head1 != null && head2 != null){
+            if(head1.val < head2.val){
+                ptr.node=head1;
+                head1=head1.node;
+            }
+            else{
+                ptr.node=head2;
+                head2=head2.node;
+            }
+            ptr=ptr.node;
+        }
+        while(head1 != null){
+            ptr.node=head1;
+            head1=head1.node;
+            ptr=ptr.node;
+        }
+        while(head2 != null){
+            ptr.node=head2;
+            head2=head2.node;
+            ptr=ptr.node;
+        }
+        return newLinkedList.node;
+    }
+
+
+    public static LinkedList_16 sort_list(LinkedList_16 head){
+        if(head == null || head.node == null){
+            return head;
+        }
+
+        LinkedList_16 mid=middle(head);
+        LinkedList_16 RightHead=mid.node;
+        mid.node=null;
+
+        LinkedList_16 left=sort_list(head);
+        LinkedList_16 right=sort_list(RightHead);
+
+        return sort(left ,right);
+    }
+
+    public static void printLL(LinkedList_16 head){
+        LinkedList_16 ptr=head;
+        while (ptr != null) {
+            System.out.print(ptr.val+"->");
+            ptr=ptr.node;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        LinkedList_16 l1=new LinkedList_16(4);
+        LinkedList_16 l2=new LinkedList_16(3);
+        LinkedList_16 l3=new LinkedList_16(9);
+        LinkedList_16 l4=new LinkedList_16(1);
+
+        l1.node=l2;
+        l2.node=l3;
+        l3.node=l4;
+        l4.node=null;
+
+        LinkedList_16 result=sort_list(l1);
+        printLL(result);
+
+    }
+}
+
+/*Time Complexity: O(n log n) — due to recursively splitting the list and merging.
+Space Complexity: O(log n) — for the recursion stack (no extra space used for arrays).*/
